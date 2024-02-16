@@ -1,5 +1,45 @@
 # Assignment 1 - Web Services
 
+## Python version: 
+
+* Python 3.11.5
+
+## Modules to install: 
+
+* for Fast API: ```fastapi```, ```pydantic```, ```spacy```
+* for Flask: ```flask```, ```ner```, ```spacy```
+* for Streamlit: ```networkx```, ```graphviz```, ```PIL```, ```streamlit```, ```pandas```, ```altair```
+
+## How to start the apps: 
+
+* all of these require cd into ```./assignment1/code/```
+* since I am on Windows, I ran all of these out of Powershell
+
+#### RESTFull API: 
+
+* ```uvicorn app_fastapi:app --reload```: http://127.0.0.1:8000 should open up in the web browser but we will interact with the API through the command line to receive outputs for the file ```input.json``` (you can change the content of this file to parse a different text input).
+
+* in the same directory, run these commands: 
+
+**Without ```pretty``` parameter:**
+
+- for general info: ```curl http://127.0.0.1:8000```
+
+- for named entity recognition (NER): ```Invoke-RestMethod -Uri http://127.0.0.1:8000/ner -Method Post -Headers @{"Content-Type"="application/json"} -InFile input.json | ConvertTo-Json -Depth 100 | Out-Host``` (on Linux or Mac, you might be able to run ```curl http://127.0.0.1:8000/ner -H "Content-Type: application/json" -d@input.txt```)
+
+- for dependencies (DEP): ```Invoke-RestMethod -Uri http://127.0.0.1:8000/dep -Method Post -Headers @{ "Content-Type"="application/json" } -InFile input.json | ConvertTo-Json -Depth 100 | Out-Host``` (on Linux or Mac, you might be able to run ```curl http://127.0.0.1:8000/dep -H "Content-Type: application/json" -d@input.txt```)
+
+**With ```pretty``` parameter:**
+
+- for general info: ```curl http://127.0.0.1:8000?pretty=true```
+
+- for NER: ```Invoke-RestMethod -Uri http://127.0.0.1:8000/ner?pretty=true -Method Post -Headers @{"Content-Type"="application/json"} -InFile input.json | ConvertTo-Json -Depth 100 | Out-Host``` (on Linux or Mac: ```curl http://127.0.0.1:8000/ner?pretty=true -H "Content-Type: application/json" -d@input.json```)
+
+- for DEP: ```Invoke-RestMethod -Uri http://127.0.0.1:8000/dep?pretty=true -Method Post -Headers @{ "Content-Type"="application/json" } -InFile input.json | ConvertTo-Json -Depth 100 | Out-Host``` (on Linux or Mac: ```curl http://127.0.0.1:8000/dep?pretty=true -H "Content-Type: application/json" -d@input.json```)
+
+
+
+
 There old assignment had three parts:
 
 1. Create a RESTful API to access spaCy NER
