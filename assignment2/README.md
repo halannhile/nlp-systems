@@ -2,7 +2,7 @@
 
 ## Python version: 
 
-* Python 3.11.5
+* ```Python 3.11.5```
 
 ## Modules to install: 
 
