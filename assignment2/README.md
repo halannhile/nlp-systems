@@ -21,7 +21,7 @@
 
 ### **Landing page:** http://127.0.0.1:5000
 
-<img src="images/landing-page.png" width="700"  style="border: 2px solid #999;">
+<img src="images/landing-page.png" width="700"  style="border: 20px solid #999;">
 
 ### **Results page:**
 
