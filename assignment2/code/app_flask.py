@@ -5,7 +5,7 @@ import spacy
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Change the URI as needed
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 class Entity(db.Model):
@@ -40,15 +40,18 @@ def index():
         # Parse entities from markup using BeautifulSoup
         soup = BeautifulSoup(markup, 'html.parser')
         entities = [entity.text for entity in soup.find_all('entity')]
-        # print("entities: ", entities)
+        print("entities: ", entities)
 
         # Store entities in the database
         entities_dict = {}
+        sub_entities = set()  # Keep track of sub-entities
+
         for entity in entities:
             # Check if the entity is not a character from "entity markup"
             if len(entity) > 1:
                 entities_dict[entity] = {"relations": []}
-        
+                # Split the entity into individual words and add them to sub_entities
+                sub_entities.update(entity.split())
 
         # Dependency parsing
         doc = nlp(text)
@@ -60,31 +63,32 @@ def index():
         for sent in doc.sents:
             sentence_text = sent.text
             parse_result = {"sentence_text": sentence_text, "result": ""}
+
             for token in sent:
                 if token.dep_ != 'punct':
                     relation_text = f"{token.text} {token.dep_} {token.head.text}"
                     head_entity_text = token.head.text
                     entity_text = token.text
 
-                    # Check if the head entity contains any recognized entities
-                    matching_entity_heads = [entity for entity in entities if head_entity_text in entity]
+                    # Check if the token's head is part of any recognized entities
+                    matching_entity_heads = [entity for entity in entities_dict if head_entity_text in entity.split()]
 
                     if matching_entity_heads:
                         # Use the first matching entity as the key
                         entity_key = matching_entity_heads[0]
 
                         # Add the head entity to the relations dictionary
-                        relation_data = {"relation_text": relation_text, "entity_head": head_entity_text}
+                        relation_data = {"relation_text": relation_text}
                         entities_dict[entity_key]["relations"].append(relation_data)
 
-                    # Check if the head entity contains any recognized entities
-                    matching_entities = [entity for entity in entities if entity_text in entity]
+                    # Check if the token's text is part of any recognized entities
+                    matching_entities = [entity for entity in entities_dict if entity_text in entity.split()]
                     if matching_entities:
                         # Use the first matching entity as the key
                         entity_key = matching_entities[0]
 
                         # Add the head entity to the relations dictionary
-                        relation_data = {"relation_text": relation_text, "entity_head": entity_text}
+                        relation_data = {"relation_text": relation_text}
                         entities_dict[entity_key]["relations"].append(relation_data)
 
                     # Update the parse result for rendering
@@ -92,8 +96,7 @@ def index():
 
             parse_results.append(parse_result)
 
-        # print("parse_results: ", parse_results)
-        # print("dict: ", entities_dict)
+        print("dict: ", entities_dict)
 
         # Store entities and relations in the database
         for entity_text, data in entities_dict.items():
@@ -102,7 +105,6 @@ def index():
 
             for relation_data in data["relations"]:
                 relation_text = relation_data["relation_text"]
-                entity_head = relation_data["entity_head"]
 
                 # Check if the relation already exists
                 db_relation = Relation.query.filter_by(relation_text=relation_text).first()
@@ -113,9 +115,6 @@ def index():
 
                 # Associate the relation with the entity
                 db_entity.relations.append(db_relation)
-
-                # Set the entity_head field
-                db_relation.entity_head = entity_head
 
         # Commit changes to the database
         db.session.commit()
