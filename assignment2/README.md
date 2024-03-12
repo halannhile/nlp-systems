@@ -21,7 +21,7 @@
 
 ### **Landing page:** http://127.0.0.1:5000
 
-<kbd><img src="images/landing-page.png" width="700"  style="border: 2px solid #999;"></kbd>
+<kbd><img src="images/landing-page.png" width="550"  style="border: 2px solid #999;"></kbd>
 
 ### **Results page:**
 
@@ -30,7 +30,7 @@
 
 ### **Database:** http://127.0.0.1:5000/database
 
-<kbd><img src="images/database.png" width="400" style="border: 2px solid #999;"></kbd>
+<kbd><img src="images/database.png" width="300" style="border: 2px solid #999;"></kbd>
 
 * There's also the option to clear the database in case you want to submit a new text and do not want to keep the results of spaCy parsing of the previous input: 
 
