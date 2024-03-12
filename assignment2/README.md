@@ -43,7 +43,7 @@ Currently, this Flask app has one shortcoming. Consider this example input text:
 
 The spaCy parsing results are as follows: 
 
-<kbd><img src="images/future-work.png" width="500" style="border: 2px solid #999;"></kbd>
+<kbd><img src="images/future-work.png" width="800" style="border: 2px solid #999;"></kbd>
 
 We can see that there are 2 similar entities: "Sebastian Thrun" and "Thrun" which both point to the same entity (same person) in this case (although this might not be the case for all examples, e.g. Mr. Le and Mrs. Le are different people with the same last name). 
 
