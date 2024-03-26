@@ -21,7 +21,7 @@
 
 ### **Landing page:** http://127.0.0.1:5000
 
-<kbd><img src="images/landing-page.png" width="700"  style="border: 2px solid #999;"></kbd>
+<kbd><img src="images/landing-page.png" width="550"  style="border: 2px solid #999;"></kbd>
 
 ### **Results page:**
 
@@ -30,7 +30,7 @@
 
 ### **Database:** http://127.0.0.1:5000/database
 
-<kbd><img src="images/database.png" width="400" style="border: 2px solid #999;"></kbd>
+<kbd><img src="images/database.png" width="300" style="border: 2px solid #999;"></kbd>
 
 * There's also the option to clear the database in case you want to submit a new text and do not want to keep the results of spaCy parsing of the previous input: 
 
@@ -42,12 +42,13 @@
 Currently, this Flask app has one shortcoming. Consider this example input text: "When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously. “I can tell you very senior CEOs of major American car companies would shake my hand and turn away because I wasn’t worth talking to,” said Thrun, in an interview with Recode earlier this week." 
 
 The spaCy parsing results are as follows: 
-<kbd><img src="images/future-work.png" width="500" style="border: 2px solid #999;"></kbd>
+
+<kbd><img src="images/future-work.png" width="1000" style="border: 2px solid #999;"></kbd>
 
 We can see that there are 2 similar entities: "Sebastian Thrun" and "Thrun" which both point to the same entity (same person) in this case (although this might not be the case for all examples, e.g. Mr. Le and Mrs. Le are different people with the same last name). 
 
 With the way that I currently set up this app so that I can collect all relations of an entity under one same row in the database, it's leading to the problem that all relations that "Thrun" appeared in will be collected under "Sebastian Thrun" (i.e. relation "Thrun said" in this case). Hence, even though in the database, "Thrun" appears as "No relations found", we can actually find the relation "Thrun said" under "Sebastian Thrun". Of course, this works only when these point to the same entity. 
 
-<kbd><img src="images/future-work-2.png" width="500" style="border: 2px solid #999;"></kbd>
+<kbd><img src="images/future-work-2.png" width="300" style="border: 2px solid #999;"></kbd>
 
 For future work, I want to figure out a way to clearly separate entities that overlap each other (i.e., one entity is the substring of the other entity) such as the above example. 
