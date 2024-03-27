@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 import ner
 import spacy
 from bs4 import BeautifulSoup
+import en_core_web_sm
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -22,7 +24,8 @@ class Relation(db.Model):
 
 
 # Load the spaCy English model for dependency parsing
-nlp = spacy.load("en_core_web_sm")
+# nlp = spacy.load("en_core_web_sm")
+nlp = en_core_web_sm.load()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
