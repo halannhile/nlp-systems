@@ -1,30 +1,26 @@
-# Use the official Python image from the Docker Hub as a base image
-FROM python:3.9-slim
+# Use an official Python runtime as a parent image
+FROM python:3.9
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
-# Install system dependencies
-RUN apt-get update \
-    && apt-get install -y \
-        graphviz \
-    && rm -rf /var/lib/apt/lists/*
+ENV FLASK_APP app_flask.py
+ENV FLASK_RUN_HOST 0.0.0.0
+ENV FLASK_RUN_PORT 5000
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the Flask app code into the container at /app
-COPY . .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Install Python dependencies
+# Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install spaCy model
 RUN python -m spacy download en_core_web_sm
 
-# Expose the port that Flask listens on
-EXPOSE 3000
+# Expose the Flask port
+EXPOSE 5000
 
-# Command to run the Flask app
+# Run the Flask application
 CMD ["python", "app_flask.py"]
