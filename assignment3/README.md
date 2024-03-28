@@ -66,6 +66,28 @@
     docker rm container-id
     ```
 
+## Troubleshooting: 
+
+* In case you cannot build your image or run your Docker container, first check if your container is running: 
+
+    ```
+    docker ps 
+    ```
+
+* If you cannot see your container in the list of active containers above, check its status by running the below command. If the status is "EXIT", this means there was an error while building your Docker image.
+
+    ```
+    docker ps -a
+    ```
+
+* Check the logs for full details on the error: 
+
+    ```
+    docker logs container-id
+    ```
+
+
+
 
 
 
