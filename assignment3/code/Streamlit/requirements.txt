@@ -1,0 +1,7 @@
+networkx
+graphviz
+Pillow
+streamlit
+pandas
+altair
+spacy

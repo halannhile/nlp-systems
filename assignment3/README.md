@@ -65,6 +65,38 @@
     docker stop container-id
     docker rm container-id
     ```
+## Flask App:
+
+* To build the Docker image from the Dockerfile:
+
+```
+docker build -t my-flask-app .
+```
+
+* To create and start a Docker container based on the Docker image built above: 
+
+```
+docker run -d -p 5000:5000 --name my-flask-container my-flask-app
+```
+
+* Navigate to: http://127.0.0.1:5000/
+
+## Streamlit App: 
+
+* To build the Docker image from the Dockerfile:
+
+```
+docker build -t my-streamlit-app .
+```
+
+* To create and start a Docker container based on the Docker image built above: 
+
+```
+docker run -d -p 8501:8501 --name my-streamlit-container my-streamlit-app
+```
+
+* Navigate to: http://localhost:8501/
+
 
 ## Troubleshooting: 
 

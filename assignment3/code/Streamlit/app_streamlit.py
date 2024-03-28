@@ -6,7 +6,6 @@ from PIL import Image
 import streamlit as st
 import pandas as pd
 import altair as alt
-import spacy
 from spacy import displacy
 
 import ner
