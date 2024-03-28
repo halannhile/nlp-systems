@@ -6,13 +6,14 @@ from PIL import Image
 import streamlit as st
 import pandas as pd
 import altair as alt
-from spacy import displacy
 
 import ner
 
 example = ("Sebastian Tharun started working on selfdriving cars at Google in 2007. Sue did not.")
 
-st.set_page_config(page_title='spaCy NER and Dependency Parsing', layout='wide')
+st.set_page_config(
+    page_title='spaCy NER and Dependency Parsing',
+    layout='wide')
 
 # Sidebar
 st.sidebar.title('Settings')
@@ -65,7 +66,6 @@ if view_option == 'Entities':
         bar_chart = bar_chart.properties(width=800, height=400)
         st.altair_chart(bar_chart)
         st.table(chart)
-        
 
 elif view_option == 'Dependencies':
     # Dependencies view
@@ -96,7 +96,9 @@ elif view_option == 'Dependencies':
         for node in overall_graph.nodes():
             overall_graph_chart.node(node)
         for edge in overall_graph.edges():
-            overall_graph_chart.edge(edge[0], edge[1], label=overall_graph[edge[0]][edge[1]]['label'])
+            overall_graph_chart.edge(edge[0],
+                                     edge[1],
+                                     label=overall_graph[edge[0]][edge[1]]['label'])
 
         overall_graph_path = "temp_overall_graph"
         overall_graph_chart.render(overall_graph_path, format='png', cleanup=True)
@@ -116,12 +118,11 @@ elif view_option == 'Dependencies':
             for node in sentence_graph.nodes():
                 sentence_graph_chart.node(node)
             for edge in sentence_graph.edges():
-                sentence_graph_chart.edge(edge[0], edge[1], label=sentence_graph[edge[0]][edge[1]]['label'])
+                sentence_graph_chart.edge(edge[0],
+                                          edge[1],
+                                          label=sentence_graph[edge[0]][edge[1]]['label'])
 
             sentence_graph_path = f"temp_sentence_graph_{sent_idx + 1}"
             sentence_graph_chart.render(sentence_graph_path, format='png', cleanup=True)
             sentence_graph_image = Image.open(f"{sentence_graph_path}.png")
             st.image(sentence_graph_image)
-
-
-
