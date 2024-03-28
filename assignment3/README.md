@@ -83,6 +83,8 @@
 
 ## III. Flask App:
 
+* To build and run the docker container, first `cd ./code/flask`
+
 * To build the Docker image from the Dockerfile:
 
     ```
@@ -99,6 +101,8 @@
 
 ## IV. Streamlit App: 
 
+* To build and run the docker container, first `cd ./code/streamlit`
+
 * To build the Docker image from the Dockerfile:
 
     ```
@@ -111,7 +115,7 @@
     docker run -d -p 8501:8501 --name my-streamlit-container my-streamlit-app
     ```
 
-* Navigate to: http://localhost:8501/
+* Navigate to: http://localhost:8501/ to access the app
 
 
 ## V. Troubleshooting: 
